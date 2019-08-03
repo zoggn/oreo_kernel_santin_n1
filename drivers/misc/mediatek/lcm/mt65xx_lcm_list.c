@@ -41,6 +41,10 @@ LCM_DRIVER *lcm_driver_list[] = {
 	&otm1285a_hd720_dsi_vdo_tm_lcm_drv,
 #endif
 
+#if defined(TD4310_FHD_DSI_VDO_CHUANGWEI_MALATA)
+    &td4310_fhd_dsi_vdo_chuangwei_malata_lcm_drv,
+#endif
+    
 #if defined(NT35595_FHD_DSI_CMD_TRULY_8163)
 	&nt35595_fhd_dsi_cmd_truly_8163_lcm_drv,
 #endif

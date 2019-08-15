@@ -745,42 +745,42 @@
 	};
 	camera_pins_cam2_pnd0: cam2@3 {
 		pins_cmd_dat {
-			pins = <PINMUX_GPIO85__FUNC_GPIO85>;
+			pins = <PINMUX_GPIO14__FUNC_GPIO14>;
 			slew-rate = <1>;
 			output-low;
 		};
 	};
 	camera_pins_cam2_pnd1: cam2@4 {
 		pins_cmd_dat {
-			pins = <PINMUX_GPIO85__FUNC_GPIO85>;
+			pins = <PINMUX_GPIO14__FUNC_GPIO14>;
 			slew-rate = <1>;
 			output-high;
 		};
 	};
 	camera_pins_cam_mipi_sel_0: mipi_sel@0 {
 		pins_cmd_dat {
-			pins = <PINMUX_GPIO84__FUNC_GPIO84>;
+			pins = <PINMUX_GPIO190__FUNC_GPIO190>;
 			slew-rate = <1>;
 			output-low;
 		};
 	};
 	camera_pins_cam_mipi_sel_1: mipi_sel@1 {
 		pins_cmd_dat {
-			pins = <PINMUX_GPIO84__FUNC_GPIO84>;
+			pins = <PINMUX_GPIO190__FUNC_GPIO190>;
 			slew-rate = <1>;
 			output-high;
 		};
 	};
 	camera_pins_cam_mipi_en_0: mipi_en@0 {
 		pins_cmd_dat {
-			pins = <PINMUX_GPIO83__FUNC_GPIO83>;
+			pins = <PINMUX_GPIO21__FUNC_GPIO21>;
 			slew-rate = <1>;
 			output-low;
 		};
 	};
 	camera_pins_cam_mipi_en_1: mipi_en@1 {
 		pins_cmd_dat {
-			pins = <PINMUX_GPIO83__FUNC_GPIO83>;
+			pins = <PINMUX_GPIO21__FUNC_GPIO21>;
 			slew-rate = <1>;
 			output-high;
 		};

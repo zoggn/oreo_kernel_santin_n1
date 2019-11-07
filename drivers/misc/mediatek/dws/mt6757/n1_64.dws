@@ -407,18 +407,17 @@
             </gpio19>
             <gpio20>
                 <eint_mode>false</eint_mode>
-                <def_mode>2</def_mode>
-                <mode_arr>10100000</mode_arr>
+                <def_mode>0</def_mode>
+                <mode_arr>10000000</mode_arr>
                 <inpull_en>true</inpull_en>
                 <inpull_selhigh>false</inpull_selhigh>
                 <def_dir>OUT</def_dir>
                 <in>true</in>
                 <out>true</out>
                 <out_high>false</out_high>
-                <varName0>GPIO_UART_UTXD1_PIN</varName0>
-                <varName1>GPIO_SIM_SD_INT</varName1>
+                <varName0>GPIO_EXT_SPKAMP_EN_PIN</varName0>
                 <smt>false</smt>
-                <ies>true</ies>
+                <ies>false</ies>
             </gpio20>
             <gpio21>
                 <eint_mode>false</eint_mode>

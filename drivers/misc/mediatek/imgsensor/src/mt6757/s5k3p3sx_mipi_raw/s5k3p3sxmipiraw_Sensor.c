@@ -398,37 +398,34 @@ static kal_uint16 set_gain(kal_uint16 gain)
     return gain;
 } /*	set_gain  */
 
-/*
 static void set_mirror_flip(kal_uint8 image_mirror)
 {
 
-kal_uint8 itemp;
+    kal_uint8 itemp;
 
-LOG_INF("image_mirror = %d\n", image_mirror);
-itemp=read_cmos_sensor(0x0101);
-itemp &= ~0x03;
+    LOG_INF("image_mirror = %d\n", image_mirror);
+    itemp = read_cmos_sensor(0x0101);
+    itemp &= ~0x03;
 
-switch(image_mirror)
-	{
+    switch (image_mirror) {
 
-	   case IMAGE_NORMAL:
-	   	     write_cmos_sensor(0x0101, itemp);
-		      break;
+    case IMAGE_NORMAL:
+        write_cmos_sensor(0x0101, itemp);
+        break;
 
-	   case IMAGE_V_MIRROR:
-		     write_cmos_sensor(0x0101, itemp | 0x02);
-		     break;
+    case IMAGE_V_MIRROR:
+        write_cmos_sensor(0x0101, itemp | 0x02);
+        break;
 
-	   case IMAGE_H_MIRROR:
-		     write_cmos_sensor(0x0101, itemp | 0x01);
-		     break;
+    case IMAGE_H_MIRROR:
+        write_cmos_sensor(0x0101, itemp | 0x01);
+        break;
 
-	   case IMAGE_HV_MIRROR:
-		     write_cmos_sensor(0x0101, itemp | 0x03);
-		     break;
-	}
+    case IMAGE_HV_MIRROR:
+        write_cmos_sensor(0x0101, itemp | 0x03);
+        break;
+    }
 }
-*/
 
 /*************************************************************************
 * FUNCTION
@@ -615,7 +612,9 @@ static void preview_setting(void)
     //Preview 2104*1560 30fps 24M MCLK 4lane 608Mbps/lane
     // preview 30.01fps
     LOG_INF("E\n");
+    /* stream off */
     write_cmos_sensor(0x100, 0);
+
     write_cmos_sensor(0x6028, 0x4000);
     write_cmos_sensor(0x344, 0);
     write_cmos_sensor(0x346, 0);
@@ -643,6 +642,8 @@ static void preview_setting(void)
     write_cmos_sensor(0x340, 0x708);
     write_cmos_sensor(0x3072, 0x3C0);
     write_cmos_sensor(0x6214, 0x7970);
+
+    /* stream on */
     write_cmos_sensor(0x100, 0x100);
 } /*	preview_setting  */
 
@@ -651,7 +652,10 @@ static void capture_setting(kal_uint16 currefps)
     LOG_INF("E! currefps:%d\n", currefps);
     // full size 29.76fps
     // capture setting 4208*3120  480MCLK 1.2Gp/lane
+
+    /* stream off */
     write_cmos_sensor(0x100, 0);
+
     write_cmos_sensor(0x6028, 0x4000);
     write_cmos_sensor(0x344, 0);
     write_cmos_sensor(0x346, 0);
@@ -679,25 +683,30 @@ static void capture_setting(kal_uint16 currefps)
     write_cmos_sensor(0x340, 0x708);
     write_cmos_sensor(0x3072, 0x3C0);
     write_cmos_sensor(0x6214, 0x7970);
+
+    /* stream on */
     write_cmos_sensor(0x100, 0x100);
 }
 static void normal_video_setting(kal_uint16 currefps)
 {
     LOG_INF("E! currefps:%d\n", currefps);
     // full size 30fps
-    write_cmos_sensor(0x100, 0);
-    write_cmos_sensor(0x6028, 0x4000);
-    write_cmos_sensor(0x344, 0);
-    write_cmos_sensor(0x346, 0);
-    write_cmos_sensor(0x348, 0x90F);
-    write_cmos_sensor(0x34A, 0x6D3);
-    write_cmos_sensor(0x34C, 0x910);
+    capture_setting(300);
 }
 static void hs_video_setting(void)
 {
     LOG_INF("E\n");
+    /* stream off */
+    write_cmos_sensor(0x100, 0);
+
+    write_cmos_sensor(0x6028, 0x4000);
+    write_cmos_sensor(0x344, 0xC8);
+    write_cmos_sensor(0x346, 0x14E);
+    write_cmos_sensor(0x348, 0x847);
+    write_cmos_sensor(0x34A, 0x585);
+    write_cmos_sensor(0x34C, 0x780);
     write_cmos_sensor(0x34E, 0x438);
-    write_cmos_sensor(0x3002, 0x1);
+    write_cmos_sensor(0x3002, 1);
     write_cmos_sensor(0x136, 0x1800);
     write_cmos_sensor(0x304, 6);
     write_cmos_sensor(0x306, 0x8C);
@@ -717,6 +726,8 @@ static void hs_video_setting(void)
     write_cmos_sensor(0x340, 0x708);
     write_cmos_sensor(0x3072, 0x3C0);
     write_cmos_sensor(0x6214, 0x7970);
+
+    /* stream on */
     write_cmos_sensor(0x100, 0x100);
 }
 
@@ -904,7 +915,7 @@ static kal_uint32 preview(MSDK_SENSOR_EXPOSURE_WINDOW_STRUCT* image_window,
     spin_unlock(&imgsensor_drv_lock);
 
     preview_setting();
-    //set_mirror_flip(imgsensor.mirror);
+    set_mirror_flip(imgsensor.mirror);
 
     return ERROR_NONE;
 } /*	preview   */
@@ -956,7 +967,7 @@ static kal_uint32 capture(MSDK_SENSOR_EXPOSURE_WINDOW_STRUCT* image_window,
     spin_unlock(&imgsensor_drv_lock);
 
     capture_setting(imgsensor.current_fps);
-    //set_mirror_flip(imgsensor.mirror);
+    set_mirror_flip(imgsensor.mirror);
 
     return ERROR_NONE;
 } /* capture() */
@@ -975,7 +986,7 @@ static kal_uint32 normal_video(MSDK_SENSOR_EXPOSURE_WINDOW_STRUCT* image_window,
     spin_unlock(&imgsensor_drv_lock);
 
     normal_video_setting(imgsensor.current_fps);
-    //set_mirror_flip(imgsensor.mirror);
+    set_mirror_flip(imgsensor.mirror);
 
     return ERROR_NONE;
 } /*	normal_video   */
@@ -998,7 +1009,7 @@ static kal_uint32 hs_video(MSDK_SENSOR_EXPOSURE_WINDOW_STRUCT* image_window,
     imgsensor.autoflicker_en = KAL_FALSE;
     spin_unlock(&imgsensor_drv_lock);
     hs_video_setting();
-    //set_mirror_flip(imgsensor.mirror);
+    set_mirror_flip(imgsensor.mirror);
 
     return ERROR_NONE;
 } /*	hs_video   */
@@ -1021,7 +1032,7 @@ static kal_uint32 slim_video(MSDK_SENSOR_EXPOSURE_WINDOW_STRUCT* image_window,
     imgsensor.autoflicker_en = KAL_FALSE;
     spin_unlock(&imgsensor_drv_lock);
     slim_video_setting();
-    //set_mirror_flip(imgsensor.mirror);
+    set_mirror_flip(imgsensor.mirror);
 
     return ERROR_NONE;
 } /*	slim_video	 */
@@ -1080,7 +1091,7 @@ static kal_uint32 get_info(MSDK_SCENARIO_ID_ENUM scenario_id,
     sensor_info->IHDR_Support = imgsensor_info.ihdr_support;
     sensor_info->IHDR_LE_FirstLine = imgsensor_info.ihdr_le_firstline;
     sensor_info->SensorModeNum = imgsensor_info.sensor_mode_num;
-    sensor_info->PDAF_Support = 1;
+    sensor_info->PDAF_Support = 0;
     sensor_info->SensorMIPILaneNumber = imgsensor_info.mipi_lane_num;
     sensor_info->SensorClockFreq = imgsensor_info.mclk;
     sensor_info->SensorClockDividCount = 3; /* not use */

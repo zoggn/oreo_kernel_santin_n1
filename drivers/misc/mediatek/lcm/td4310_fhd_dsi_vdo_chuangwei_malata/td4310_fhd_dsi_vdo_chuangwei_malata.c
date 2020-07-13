@@ -71,15 +71,12 @@ lcm_util.dsi_dcs_read_lcm_reg_v2(cmd, buffer, buffer_size)
 #include <linux/platform_device.h>
 #endif
 
-#define LCM_DSI_CMD_MODE									0
 #define FRAME_WIDTH										(1080)
 #define FRAME_HEIGHT									(1920)
 
 #define REGFLAG_DELAY		0xFFFC
 #define REGFLAG_UDELAY	0xFFFB
 #define REGFLAG_END_OF_TABLE	0xFFFD
-#define REGFLAG_RESET_LOW	0xFFFE
-#define REGFLAG_RESET_HIGH	0xFFFF
 
 static LCM_DSI_MODE_SWITCH_CMD lcm_switch_mode_cmd;
 
@@ -208,8 +205,14 @@ static void lcm_resume_power(void)
 
 static void lcm_init(void)
 {
+    SET_RESET_PIN(0);
+    MDELAY(12);
     SET_RESET_PIN(1);
-    MDELAY(20);
+    MDELAY(12);
+    SET_RESET_PIN(0);
+    MDELAY(7);
+    SET_RESET_PIN(1);
+    MDELAY(12);
     
     push_table(NULL, lcm_initialization_setting, sizeof(lcm_initialization_setting) / sizeof(struct LCM_setting_table), 1);
 }
@@ -218,6 +221,8 @@ static void lcm_suspend(void)
 {
     push_table(NULL, lcm_suspend_setting, sizeof(lcm_suspend_setting) / sizeof(struct LCM_setting_table), 1);
     SET_RESET_PIN(0);
+    MDELAY(10);
+    SET_RESET_PIN(1);
 }
 
 static void lcm_resume(void)

@@ -118,7 +118,7 @@ static int fl_enable(struct flashlight_dev *fdev, int enable)
 #ifdef CONFIG_MTK_FLASHLIGHT_DLPT
 	kicker_pbm_by_flash(enable);
 #endif
-#ifdef CONFIG_MTK_FLASHLIGHT_PT
+#if 0 //#ifdef CONFIG_MTK_FLASHLIGHT_PT
 	if (pt_is_low(pt_low_vol, pt_low_bat, pt_over_cur) == 2)
 		if (enable) {
 			enable = 0;

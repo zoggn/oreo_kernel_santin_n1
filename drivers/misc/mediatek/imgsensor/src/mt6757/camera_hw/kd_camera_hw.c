@@ -32,7 +32,7 @@
  ******************************************************************************/
 #define PFX "[kd_camera_hw]"
 
-/* #define DEBUG_CAMERA_HW_K */
+#define DEBUG_CAMERA_HW_K
 #ifdef DEBUG_CAMERA_HW_K
 #define PK_DBG(fmt, arg...)			pr_debug(PFX fmt, ##arg)
 #define PK_ERR(fmt, arg...)         pr_err(fmt, ##arg)
@@ -113,7 +113,7 @@ PowerCust PowerCustList = {
 		{GPIO_UNSUPPORTED, GPIO_MODE_GPIO, Vol_Low},	/* for SUB_DVDD; */
 		{GPIO_UNSUPPORTED, GPIO_MODE_GPIO, Vol_High},	/* for SUB_DOVDD; */
 		{GPIO_UNSUPPORTED, GPIO_MODE_GPIO, Vol_High},	/* for MAIN2_AVDD; */
-		{GPIO_SUPPORTED, GPIO_MODE_GPIO, Vol_High},	/* for MAIN2_DVDD; */
+		{GPIO_UNSUPPORTED, GPIO_MODE_GPIO, Vol_High},	/* for MAIN2_DVDD; */
 		{GPIO_UNSUPPORTED, GPIO_MODE_GPIO, Vol_High},	/* for MAIN2_DOVDD; */
 		/* {GPIO_SUPPORTED, GPIO_MODE_GPIO, Vol_Low}, */
 	}

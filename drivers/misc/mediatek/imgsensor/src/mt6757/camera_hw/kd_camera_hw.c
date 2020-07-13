@@ -881,10 +881,11 @@ BOOL hwpoweron(PowerInformation pwInfo, char *mode_name)
 			    GPIO_UNSUPPORTED) {
 				PK_DBG("[CAMERA SENSOR] MAIN2 camera VCAM_D power on");
 				/*vcamd: unsupportable voltage range: 1500000-1210000uV */
-				if (pwInfo.Voltage == Vol_1200) {
-					pwInfo.Voltage = Vol_1220;
-					/* PK_INFO("[CAMERA SENSOR] Main2 camera VCAM_D power 1.2V to 1.21V\n"); */
-				}
+				/*if (pwInfo.Voltage == Vol_1200) {
+				*	pwInfo.Voltage = Vol_1220;
+				*	PK_INFO("[CAMERA SENSOR] Main2 camera VCAM_D power 1.2V to 1.21V\n");
+				* }
+				*/
 				if (_hwPowerOn(MAIN2_DVDD, pwInfo.Voltage) != TRUE) {
 					PK_ERR("[CAMERA SENSOR] Fail to enable digital power2\n");
 					return FALSE;

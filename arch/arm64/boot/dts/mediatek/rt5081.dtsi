@@ -88,7 +88,7 @@
 					  "isink4_open", "isink3_open",
 					  "isink2_open", "isink1_open";
 			/* name cnt must be 4 */
-			rt,led_name = "red", "green",
+			rt,led_name = "rt5081_pmu_led1", "rt5081_pmu_led2",
 				      "rt5081_pmu_led3", "rt5081_pmu_led4";
 			/* trigger cnt must be 4, mode can be selected as */
 			/* cc_mode -> const current mode */

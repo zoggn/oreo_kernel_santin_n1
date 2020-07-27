@@ -224,6 +224,11 @@ void AF_PowerDown(void)
 		AK7371AF_PowerDown();
 		#endif
 
+                #ifdef CONFIG_MTK_LENS_DW9714AF_SUPPORT
+                DW9714AF_SetI2Cclient(g_pstAF_I2Cclient, &g_AF_SpinLock, &g_s4AF_Opened);
+                DW9714AF_PowerDown();
+                #endif
+
 		#ifdef CONFIG_MACH_MT6758
 		AK7371AF_SetI2Cclient(g_pstAF_I2Cclient, &g_AF_SpinLock, &g_s4AF_Opened);
 		AK7371AF_PowerDown();

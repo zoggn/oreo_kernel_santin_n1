@@ -1194,7 +1194,7 @@ static void rt5081_led_enable_dwork_func(struct work_struct *work)
 
 void rt5081_pmu_set_redled_blink(int level, unsigned long delay_on, unsigned long delay_off)
 {
-	unsigned char led_id = RT5081_PMU_LED4;
+	unsigned char led_id = RT5081_PMU_LED1;
 	unsigned char brightness = LED_OFF;
 	
 	if (level)
@@ -1211,7 +1211,7 @@ void rt5081_pmu_set_redled_blink(int level, unsigned long delay_on, unsigned lon
 
 void rt5081_pmu_set_greenled_blink(int level, unsigned long delay_on, unsigned long delay_off)
 {
-	unsigned char led_id = RT5081_PMU_LED3;
+	unsigned char led_id = RT5081_PMU_LED2;
 	unsigned char brightness = LED_OFF;
 	
 	if (level)

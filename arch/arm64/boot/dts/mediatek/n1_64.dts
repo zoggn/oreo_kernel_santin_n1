@@ -903,6 +903,103 @@
 	status = "okay";
 };/* DISPSYS GPIO standardization end */
 
+/* fingerprint start */
+&fingerprint {
+        compatible = "mediatek,fingerprint";
+        pinctrl-names = "fp_default", "fp_rst_high", "fp_rst_low", "eint_as_int",
+              "eint_in_low", "eint_in_float", "miso_pull_up", "miso_pull_disable",
+              "eint_in_high", "fp_enable_low", "fp_enable_high";
+        pinctrl-0 = <&fp_default>;
+        pinctrl-1 = <&fp_rst_high>;
+        pinctrl-2 = <&fp_rst_low>;
+        pinctrl-3 = <&eint_as_int>;
+        pinctrl-4 = <&eint_in_low>;
+        pinctrl-5 = <&eint_in_float>;
+        pinctrl-6 = <&miso_pull_up>;
+        pinctrl-7 = <&miso_pull_disable>;
+        pinctrl-8 = <&eint_in_high>;
+        pinctrl-9 = <&fp_enable_low>;
+        pinctrl-10 = <&fp_enable_high>;
+        status = "okay";
+};
+
+&pio {
+
+        fp_default: fp_default{
+        };
+
+        fp_rst_high: fp_rst_high {
+                pins_cmd_dat {
+                        pins = <PINMUX_GPIO17__FUNC_GPIO17>;
+                        slew-rate = <1>;
+                        output-high;
+                };
+        };
+        fp_rst_low: fp_rst_low {
+                pins_cmd_dat {
+                        pins = <PINMUX_GPIO17__FUNC_GPIO17>;
+                        slew-rate = <1>;
+                        output-low;
+                };
+        };
+        eint_as_int: eint@9 {
+                pins_cmd_dat {
+                        pins = <PINMUX_GPIO16__FUNC_GPIO16>;
+                        slew-rate = <0>;
+                        bias-disable;
+                };
+        };
+        eint_in_low: eint_in_low {
+                pins_cmd_dat {
+                        pins = <PINMUX_GPIO16__FUNC_GPIO16>;
+                        slew-rate = <0>;
+                        bias-pull-down = <0>;
+                };
+        };
+        eint_in_high: eint_in_high {
+                pins_cmd_dat {
+                        pins = <PINMUX_GPIO16__FUNC_GPIO16>;
+                        slew-rate = <0>;
+                        bias-pull-up = <0>;
+                };
+        };
+        eint_in_float: eint_in_float {
+                pins_cmd_dat {
+                        pins = <PINMUX_GPIO16__FUNC_GPIO16>;
+                        slew-rate = <0>;
+                        bias-disable;
+                };
+        };
+        miso_pull_up: miso_pull_up {
+                pins_cmd_dat {
+                        pins = <PINMUX_GPIO95__FUNC_SPI0_MI>;
+                        slew-rate = <0>;
+                        bias-pull-up = <0>;
+                };
+        };
+        miso_pull_disable: miso_pull_disable {
+                pins_cmd_dat {
+                        pins = <PINMUX_GPIO95__FUNC_SPI0_MI>;
+                        bias-disable;
+                };
+        };
+        fp_enable_low: fp_enable_low {
+                pins_cmd_dat {
+                        pins = <PINMUX_GPIO96__FUNC_SPI0_CSB>;
+                        slew-rate = <0>;
+                        bias-pull-down = <0>;
+                };
+	};
+	 fp_enable_high: fp_enable_high {
+                pins_cmd_dat {
+                        pins = <PINMUX_GPIO96__FUNC_SPI0_CSB>;
+                        slew-rate = <0>;
+                        bias-pull-up = <0>;
+                };
+        };
+};
+/* fingerprint end */
+
 &rt5081_pmu {
 	rt,intr_gpio_num = <101>; /* direct defined GPIO num */
 	rt,intr_gpio = <&pio 101 0x0>;

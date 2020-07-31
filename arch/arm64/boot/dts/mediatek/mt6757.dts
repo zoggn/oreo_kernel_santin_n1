@@ -431,6 +431,10 @@
 		compatible = "mediatek,mt6757-accdet";
 	};
 
+	fingerprint: fingerprint{
+		compatible = "mediatek,fingerprint";
+	};
+
 	bat_notify {
 		compatible = "mediatek,bat_notify";
 	};

@@ -111,6 +111,13 @@
                 <sensitive_level>Edge</sensitive_level>
                 <debounce_en>Enable</debounce_en>
             </eint16>
+            <eint26>
+                <varName>IRQ_NFC</varName>
+                <debounce_time>0</debounce_time>
+                <polarity>High</polarity>
+                <sensitive_level>Level</sensitive_level>
+                <debounce_en>Enable</debounce_en>
+            </eint26>
             <eint44>
                 <varName>DSI_TE</varName>
                 <debounce_time>0</debounce_time>

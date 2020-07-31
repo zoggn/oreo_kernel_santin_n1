@@ -17,11 +17,7 @@
 		rt-tcpc,role_def = <4>; /* 0: SNK Only, 1: SRC Only, 2: DRP, 3: Try.SRC, 4: Try.SNK */
 		rt-tcpc,rp_level = <0>; /* 0: Default, 1: 1.5, 2: 3.0 */
 		rt-tcpc,vconn_supply  = <1>;  /* 0: Never, 1: Always, 2: EMarkOnly, 3: StartOnly */
-#if (CONFIG_MTK_GAUGE_VERSION == 30)
-		rt-tcpc,notifier_supply_num = <3>; /* the number of notifier supply */
-#else
 		rt-tcpc,notifier_supply_num = <2>; /* the number of notifier supply */
-#endif
 		rt5081pd,intr_gpio = <&pio 24 0x0>;
 		rt5081pd,intr_gpio_num = <24>;
 
@@ -67,7 +63,7 @@
 			 */
 
 			pd,id-vdo-size = <3>;
-			pd,id-vdo-data = <0xd10029cf 0x00000000 0x00010000>;
+			pd,id-vdo-data = <0xd40029cf 0x0 0x10000>;
 
 			bat,nr = <1>;
 			pd,country_nr = <0>;
@@ -128,4 +124,3 @@
 		};
 	};
 };
-

@@ -12,11 +12,16 @@ config MTK_FINGERPRINT_SUPPORT
 	Say Y here if you want to use mediatek fingerprint driver,
 	fingerprint driver will support fingerprint function
 
+config GOODIX_FINGERPRINT_GX556
+        bool "Goodix Fingerprint"
+        default n
+        ---help---
+        Goodix Fingerprint chip GX556 driver
+
 if MTK_FINGERPRINT_SUPPORT
 config MTK_FINGERPRINT_SELECT
 	string "sensor type"
-	default "GF318M"
-
+	default ""
 
 if MTK_FINGERPRINT_SELECT = "FPC1145"
 config FPC_FINGERPRINT

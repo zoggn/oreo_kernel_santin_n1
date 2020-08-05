@@ -13,10 +13,9 @@
 #include <linux/spi/spidev.h>
 
 /******************************************************************************/
-/*																																						*/
-/* Reversed By zoggn for Santin n1																						*/
-/* This driver has a BUG with reboot after finger detection. 									*/
-/*																																						*/
+/*									      */
+/* Reversed By zoggn for Santin n1					      */
+/*									      */
 /******************************************************************************/
 static DEFINE_MUTEX(gf_set_gpio_mutex);
 

@@ -52,7 +52,7 @@
 #define TIME_DEBUG      (3)
 #define FLOW_DEBUG      (4)
 
-#define GF_DEBUG
+//#define GF_DEBUG
 /*#undef  GF_DEBUG*/
 
 #ifdef  GF_DEBUG

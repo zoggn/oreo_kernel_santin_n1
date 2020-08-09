@@ -34,6 +34,8 @@
 
 #define MAX_BUFFER_SIZE		512
 
+//#define DEBUG
+
 #define pn547_MAGIC	0xE9
 
 /*
@@ -147,27 +149,32 @@ static irqreturn_t  pn544_dev_irq_handler(int irq, void *dev_id)
 static ssize_t pn544_dev_read(struct file *filp, char __user *buf, size_t count, loff_t *offset)
 {
 	struct pn544_dev *pn544_dev = filp->private_data;
-	int ret,i;
+	int ret;
 //	char tmp[MAX_BUFFER_SIZE];
 
 	if (count > MAX_BUFFER_SIZE)
 		count = MAX_BUFFER_SIZE;
 
+	#ifdef DEBUG
 	printk("pn544 %s : reading %zu bytes.\n", __func__, count);
+	#endif
 
 	mutex_lock(&pn544_dev->read_mutex);
 
 	if (!mt_get_gpio_in(IRQ_PIN)) {
         
+	#ifdef DEBUG
 		printk("pn544 read no event\n");
-		
+	#endif
+
 		if (filp->f_flags & O_NONBLOCK) {
 			ret = -EAGAIN;
 			goto fail;
 		}
-		
+	#ifdef DEBUG
 		printk("pn544 read wait event\n");
-		
+	#endif
+
 		pn544_dev->irq_enabled = true;
 
 		enable_irq(pn547_irq);
@@ -204,11 +211,13 @@ static ssize_t pn544_dev_read(struct file *filp, char __user *buf, size_t count,
       return -EFAULT;
    }
 
+	#ifdef DEBUG
 	printk("pn544 IFD->PC:");
-	for(i = 0; i < ret; i++) {
+	for(int i = 0; i < ret; i++) {
 		printk(" %02X", I2CDMAReadBuf[i]);
 	}
 	printk("\n");
+	#endif
 
 	return ret;
 
@@ -220,7 +229,7 @@ fail:
 static ssize_t pn544_dev_write(struct file *filp, const char __user *buf, size_t count, loff_t *offset) 
 {
 	struct pn544_dev *pn544_dev;
-	int ret, i,idx = 0;
+	int ret,idx = 0;
 
 	pn544_dev = p_pn544_dev;
 
@@ -232,19 +241,22 @@ static ssize_t pn544_dev_write(struct file *filp, const char __user *buf, size_t
 		printk(KERN_DEBUG "%s : failed to copy from user space\n", __func__);
 		return -EFAULT;
 	}
+	#ifdef DEBUG
 	printk("pn544 %s : writing %zu bytes.\n", __func__, count);
+	#endif
 	/* Write data */
       ret = i2c_master_send(pn544_dev->client,  (unsigned char *)(uintptr_t)I2CDMAWriteBuf, count);
 	if (ret != count) {
 		pr_err("pn544 %s : i2c_master_send returned %d\n", __func__, ret);
 		ret = -EIO;
 	}
+	#ifdef DEBUG
 	printk("pn544 PC->IFD:");
-	for(i = 0; i < count; i++) {
+	for(int i = 0; i < count; i++) {
 		printk(" %02X\n", I2CDMAWriteBuf[i]);
 	}
 	printk("\n");
-	
+	#endif
 
 	return ret;
 }

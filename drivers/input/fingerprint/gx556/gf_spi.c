@@ -1112,7 +1112,7 @@ int gf_read_chip_id(struct gf_dev *pdev) {
 
   gf_spi_read_word(pdev, 0x0142, &val);
   gf_print("goodix-chip id: 0x%x \n", val);
-  if (val == 0x12a4) {
+  if (val == 0x12a4 || val == 0x12a1) {
     return 0;
   }
   printk(KERN_ERR "3goodix-chip id: 0x%x \n", val);
